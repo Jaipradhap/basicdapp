@@ -297,8 +297,13 @@ export default function Home() {
       </Head>
 
         <main className={styles.main}>
-        <Image src="/rxscoin.png" alt="rabbit eggs defi" width={20} height={20} />
-        Bsc Testnet
+
+          <div className={styles.menuline}>
+          <button><Image src="/rxscoin.png" alt="rabbit eggs defi" width={15} height={15} /></button>
+          <button>Products</button> 
+          <button>Guide</button> 
+          <button>BSCTestnet</button>
+          </div>
         { !pizzadice && (<h3>Data-Driven Cryto Platform</h3>)}
  
         {/* : // productss */}
@@ -343,17 +348,9 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        {/* <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-        > */}
 
           Powered by Rabbit Eggs DeFi &nbsp;
-          {/* <span className={styles.logo}> */}
             <Image src="/rxscoin.png" alt="rabbit eggs defi" width={20} height={20} />
-          {/* </span> */}
-        {/* </a> */}
       </footer>
     </div>
   )

@@ -26,12 +26,7 @@ export default function Product(props) {
   
   const callRedeemCT = async (accounts) => {
     try {
-      // Get network provider and web3 instance.
-      console.log('isConnected callCont--' ,isConnected);
       if(accounts) {
-        console.log('accounts if callRedeemCT--' , accounts);
-      // let totalamt = totalPrize.toString();
-
       const instance = new web3.eth.Contract(
         SimpleStorageContract.abi,
         CONTADDRESS
@@ -55,9 +50,7 @@ export default function Product(props) {
     console.log('accounts else callCont--' , accounts);
   }
     } catch (error) {
-      // Catch any errors for any of the above operations.
       notify("info","Please try again! To know about incentive tips ", "mmguide");
-      // console.error(error);
     }
   }; 
 
@@ -82,9 +75,6 @@ export default function Product(props) {
         {true && (<button  title="Guide" className={styles.refreshbutton} 
                 onClick={(e) => {
                   e.preventDefault();
-                  // setIsLoading(true);
-                  // setRbalance(accounts);
-                  // setIsLoading(false);
                 }}
                 disabled={isLoading}>
                   {/* {isLoading && <span className={styles.loaderre}></span>} */}
@@ -94,9 +84,6 @@ export default function Product(props) {
         {true && (<button title="Token Link" className={styles.refreshbutton} 
                 onClick={(e) => {
                   e.preventDefault();
-                  // setIsLoading(true);
-                  // setRbalance(accounts);
-                  // setIsLoading(false);
                 }}
                 disabled={isLoading}>
                   {/* {isLoading && <span className={styles.loaderre}></span>} */}
@@ -149,14 +136,11 @@ export default function Product(props) {
       </> )}
 
       <div className={styles.line}></div>
-       {/* <h1>Mint Token</h1> */}
+ 
       <img className="small" src={product.image} alt={product.name} width={100} height={100} />
       <h3>{product.name}</h3>
       <div>{product.price} <sup>{BASECOIN}</sup></div>
-      {/* <span className={styles.toklabel} onClick={(e) => {
-              e.preventDefault();
-              copyToken();
-            }}>{tokenAdd}</span> */}
+
       <div>
         <button className={styles.betbutton} onClick={() => onAdd(product)}>Add To Cart</button>
       </div>
