@@ -213,7 +213,6 @@ export default function Home() {
 
       
       if (accounts) {
-        setIsLoading(true);
  
         const instance = new web3.eth.Contract(
           SimpleStorageContract.abi,
@@ -228,9 +227,7 @@ export default function Home() {
          await instance.methods.getBalance(accounts).call(
             function (err, res) {
               if (err) {
-                setIsLoading(false);
               }else {
-                setIsLoading(false);
               
               setRbal(Web3.utils.fromWei(res, 'ether'));
               
@@ -240,11 +237,8 @@ export default function Home() {
 
         }
       }
-      setIsLoading(false);
 
     } catch (error) {
-      
-      setIsLoading(false);
       notify("info", "Please try after sometime! ", "tricks");
     }
   }
