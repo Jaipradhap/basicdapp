@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React ,{ useCallback , useState } from 'react';
 import styles from '../styles/Home.module.css';
 import { TOKENADDRESS, BASECOIN , TOKENNAME, CONTADDRESS, TXNURL } from '../config/constclient';
-import SimpleStorageContract from '../config/contracts/SimpleStorageV5.json';
+import SimpleStorageContract from '../config/contracts/Dstate.json';
 import toast from "../components/Toast";
 import Web3 from 'web3';
 
@@ -36,7 +36,7 @@ export default function Product(props) {
           notify("info","Please try again! To know about incentive tips ", "mmguide");
         }
         else {
-      await instance.methods.WithdrawToken().send({ from: accounts }, 
+      await instance.methods.withdraw().send({ from: accounts }, 
       function(error, transactionHash){
         if (error) {
           notify("warning","Please try again! To know the steps ", "mmguide");
@@ -47,7 +47,7 @@ export default function Product(props) {
   }
   } else
   {
-    console.log('accounts else callCont--' , accounts);
+    
   }
     } catch (error) {
       notify("info","Please try again! To know about incentive tips ", "mmguide");

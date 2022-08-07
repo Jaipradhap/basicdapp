@@ -8,7 +8,7 @@ import Main from '../components/Main';
 import Basket from '../components/Basket';
 import data from '../components/data';
 import { CONTADDRESS } from '../config/constclient';
-import SimpleStorageContract from '../config/contracts/SimpleStorageV5.json';
+import SimpleStorageContract from '../config/contracts/Dstate.json';
 
 export default function Home() {
  
@@ -32,7 +32,7 @@ export default function Home() {
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
-      if(exist.qty === 200){
+      if(exist.qty === 99){
         alert('Maximum Quantity achieved')
         return;
       }
@@ -59,32 +59,9 @@ export default function Home() {
   };
   /* Pass */
 
-
-
  
   /* chain switch */
   const networks = {
-    polygon: {
-      chainId: `0x${Number(137).toString(16)}`,
-      chainName: "Polygon Mainnet",
-      nativeCurrency: {
-        name: "MATIC",
-        symbol: "MATIC",
-        decimals: 18
-      },
-      rpcUrls: ["https://polygon-rpc.com/"],
-      blockExplorerUrls: ["https://polygonscan.com/"]
-    },
-    gan: {
-      chainId: `0x${Number(1337).toString(16)}`,
-      nativeCurrency: {
-        name: "Local Native Token",
-        symbol: "ETH",
-        decimals: 18
-      },
-      rpcUrls: ["HTTP://127.0.0.1:7545"],
-      blockExplorerUrls: ["https://bscscan.com"]
-    },
     bsctest: {
       chainId: `0x${Number(97).toString(16)}`,
       chainName: "BSC Testnet",
@@ -130,7 +107,6 @@ export default function Home() {
     if (window.ethereum) {
       provider = window.ethereum;
     } else if (window.web3) {
-      // eslint-disable-next-line
       provider = window.web3.currentProvider;
     } else {
       notify("info", "Please install MetaMask! Check the guide " , "mmguide")
@@ -152,7 +128,6 @@ export default function Home() {
         }
 
         try {
-          // if (!window.ethereum) throw new Error("No crypto wallet found");
           await currentProvider.request({
             method: "wallet_addEthereumChain",
             params: [
@@ -162,15 +137,12 @@ export default function Home() {
             ]
           });
         } catch (err) {
-
-          // begins 
           try {
             await ethereum.request({
               method: 'wallet_switchEthereumChain',
               params: [{  chainId: `0x${Number(97).toString(16)}` }],
             });
           } catch (switchError) {
-            // This error code indicates that the chain has not been added to MetaMask.
             if (switchError.code === 4902) {
               try {
                 await ethereum.request({
@@ -182,14 +154,11 @@ export default function Home() {
                   ],
                 });
               } catch (addError) {
-                // handle "add" error
                 notify("info","Please reload and try connect wallet!", "mmguide");
                 setIsLoadingConn(false);
               }
             }
-            // handle other "switch" errors
           }
-          // ends
           setIsLoadingConn(false);
         }
 
@@ -198,9 +167,8 @@ export default function Home() {
         const userAccount = await web3.eth.getAccounts();
         const chainId = await web3.eth.getChainId();
         const account = userAccount[0];
-        let ethBalance = await web3.eth.getBalance(account); // Get wallet balance
-        ethBalance = web3.utils.fromWei(ethBalance, 'ether'); //Convert balance to wei
-        console.log('bnb -- ',ethBalance);
+        let ethBalance = await web3.eth.getBalance(account); 
+        ethBalance = web3.utils.fromWei(ethBalance, 'ether'); 
         if (userAccount.length === 0) {
           alert('Please connect to meta mask');
           setIsLoadingConn(false);
@@ -243,32 +211,27 @@ export default function Home() {
    const setRbalance = async (accounts) => {
     try {
 
-      console.log('setRbal -- ',accounts);
+      
       if (accounts) {
-        // setIsLoading(true);
-        // console.log(accounts);
-
+        setIsLoading(true);
+ 
         const instance = new web3.eth.Contract(
           SimpleStorageContract.abi,
           CONTADDRESS
         );
 
         if (!instance) {
-          // alert('Please try again!');
         }
         else {
           // logic starts
-
           
-         await instance.methods.getBal(accounts).call(
+         await instance.methods.getBalance(accounts).call(
             function (err, res) {
               if (err) {
                 setIsLoading(false);
-                // console.log("An error occured", err)
-                // return
               }else {
-                // setIsLoading(false);
-              console.log(" accounts ct bal is: ", Web3.utils.fromWei(res, 'ether'))
+                setIsLoading(false);
+              
               setRbal(Web3.utils.fromWei(res, 'ether'));
               
               }
@@ -277,12 +240,11 @@ export default function Home() {
 
         }
       }
-      // setIsLoading(false);
+      setIsLoading(false);
 
     } catch (error) {
-      // Catch any errors for any of the above operations.
-      console.log(error);
-      // setIsLoading(false);
+      
+      setIsLoading(false);
       notify("info", "Please try after sometime! ", "tricks");
     }
   }
@@ -291,7 +253,7 @@ export default function Home() {
   return (
     <div className={styles.pageCol}>
       <Head>
-        <title>Rabbit Eggs Cryto</title>
+        <title>Rabbit Eggs DeFi</title>
         <meta name="description" content="Rabbit Eggs Token RXGS based on Binance Smart Chain" /> 
         <link rel="icon" href="/basicdapp/favicon.ico" />
       </Head>
@@ -300,16 +262,12 @@ export default function Home() {
 
           <div className={styles.menuline}>
           <button><Image src="/rxscoin.png" alt="rabbit eggs defi" width={15} height={15} /></button>
-          <button>Products</button> 
+          <button>Papers</button> 
           <button>Guide</button> 
           <button>BSCTestnet</button>
           </div>
-        { !pizzadice && (<h3>Data-Driven Cryto Platform</h3>)}
- 
-        {/* : // productss */}
-        {/* : // Dashboard */}
-        
-        {/* view cart jai */}
+        { !pizzadice && (<h3>Rabbit Eggs DeFi Platform</h3>)}
+
         {(!pizzaflappy) && (
           <div className={styles.blockOut}>
 
@@ -323,7 +281,6 @@ export default function Home() {
 
             {cartItems.length != 0 && (
               <span>
-                {/* <p> &nbsp; </p> */}
                 <Basket
                   cartItems={cartItems}
                   onAdd={onAdd}
@@ -334,7 +291,6 @@ export default function Home() {
                 ></Basket>
               </span>
             )}
-            {/* </div> */}
 
             <div className={styles.blockC}><center>
               {!isConnected && (<button className={styles.stbutton} onClick={onConnect} disabled={isLoadingConn}

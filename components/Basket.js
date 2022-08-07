@@ -2,7 +2,7 @@ import React , { useCallback , useState } from 'react';
 // import Image from 'next/image';
 import toast from "../components/Toast";
 import styles from '../styles/Home.module.css';
-import SimpleStorageContract from "../config/contracts/SimpleStorageV5.json";
+import SimpleStorageContract from "../config/contracts/Dstate.json";
 import { TOKENNAME ,BASECOIN, CONTADDRESS ,TXNURL , RXSQTY} from '../config/constclient';
 import Web3 from "web3";
 
@@ -38,7 +38,7 @@ export default function Basket(props) {
           notify("info","Please try again! To know about incentive tips ", "mmguide");
         }
         else {
-      await instance.methods.BuyCart().send({ from: accounts , value: Web3.utils.toWei(totalamt, 'ether')}, 
+      await instance.methods.buy().send({ from: accounts , value: Web3.utils.toWei(totalamt, 'ether')}, 
       function(error, transactionHash){
         if (error) {
 
@@ -53,7 +53,7 @@ export default function Basket(props) {
   }
   } else
   {
-    console.log('accounts else callCont--' , accounts);
+    
   }
     } catch (error) {
 
@@ -65,7 +65,7 @@ export default function Basket(props) {
   const buyTok = async (totalPrize) => {
     try {
     setIsLoading(true);
-    console.log(totalPrize);
+    
     
     await callCont(totalPrize);
     setIsLoading(false);

@@ -1,5 +1,5 @@
-export const TOKENADDRESS = '0x39cBC02712E0C3F09b9bd538B59A8a22afD90276';
-export const CONTADDRESS = '0x0f79b3102fb44Eb011279615A8A47A7007D325DB';
+export const TOKENADDRESS = '0x633045799687C4E26B8B67Cc8D8Ad09828E84F47';
+export const CONTADDRESS = '0xD64ee21C013f3c84cf9B548918102c2fBA6B76dE';
 export const TXNURL = 'https://testnet.bscscan.com/tx/';
 export const RXSAMT = 0.024;
 export const RXSQTY = '10';
