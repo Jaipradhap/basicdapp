@@ -55,6 +55,21 @@ margin-bottom:5px;
 
 .menuline button:hover  { cursor: pointer; color:violet}
 
+.menulinef {
+  display: inline;
+}
+
+.menulinef button{
+border: none;
+background: transparent;
+color: #EDEBEA;
+margin-top: 5px;
+margin-bottom:5px;
+}
+
+.menulinef button:hover  { cursor: pointer; color:violet}
+
+
 .line {
   background-color: #eaeaea;
   height: 0.5px;
