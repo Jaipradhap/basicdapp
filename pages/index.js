@@ -299,8 +299,12 @@ export default function Home() {
 
       <footer className={styles.footer}>
 
-          Powered by Rabbit Eggs DeFi &nbsp;
-            <Image src="/rxscoin.png" alt="rabbit eggs defi" width={20} height={20} />
+        <div className={styles.menulinef} >
+          <button>Contract Address</button> 
+          <button>Twitter</button> 
+          <button>Reddit</button> 
+          <button>Youtube</button>
+      </div>
       </footer>
     </div>
   )
