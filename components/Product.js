@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React ,{ useCallback , useState } from 'react';
 import styles from '../styles/Home.module.css';
-import { TOKENADDRESS, BASECOIN , TOKENNAME, CONTADDRESS, TXNURL } from '../config/constclient';
+import { TOKENADDRESS, BASECOIN , TOKENNAME, CONTADDRESS, TXNURL, GUIDE, TIPS, TOKENCT } from '../config/constclient';
 import SimpleStorageContract from '../config/contracts/Dstate.json';
 import toast from "../components/Toast";
 import Web3 from 'web3';
@@ -11,19 +11,14 @@ export default function Product(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingr, setIsLoadingr] = useState(false);
   
-  // const [tokenAdd, setTokenAdd] = useState('Token Address');
-
-  // const copyToken = async () => {
-  //   navigator.clipboard.writeText(TOKENADDRESS);
-  //   setTokenAdd('Copied!');
-  //  }
-
-
   const notify = useCallback((type, message , action) => {
     toast({ type, message, action });
   }, []);
 
-  
+  const gotourl = async (urls) => {
+    window.open(urls, '_blank').focus();
+   }
+
   const callRedeemCT = async (accounts) => {
     try {
       if(accounts) {
@@ -33,14 +28,15 @@ export default function Product(props) {
       );
 
         if(!instance) {
-          notify("info","Please try again! To know about incentive tips ", "mmguide");
+          notify("info","Please try again! To know the steps ", GUIDE);
         }
         else {
       await instance.methods.withdraw().send({ from: accounts }, 
       function(error, transactionHash){
         if (error) {
-          notify("warning","Please try again! To know the steps ", "mmguide");
+          notify("info","Please try again! To know the steps ", GUIDE);
         } else {
+          notify("info","To achieve great earnings-tips & tricks ", TIPS);
           notify("success", "Please find redeem receipt  " , TXNURL + transactionHash);
         }
     });
@@ -50,7 +46,7 @@ export default function Product(props) {
     
   }
     } catch (error) {
-      notify("info","Please try again! To know about incentive tips ", "mmguide");
+      notify("info","Please try again! To know the steps ", GUIDE);
     }
   }; 
 
@@ -75,18 +71,18 @@ export default function Product(props) {
         {true && (<button  title="Guide" className={styles.refreshbutton} 
                 onClick={(e) => {
                   e.preventDefault();
+                  gotourl(GUIDE);
                 }}
                 disabled={isLoading}>
-                  {/* {isLoading && <span className={styles.loaderre}></span>} */}
                   <Image src="/guide.png" alt="Refresh" width={10} height={10} />
                 </button>)}
                 &nbsp;
-        {true && (<button title="Token Link" className={styles.refreshbutton} 
+        {true && (<button title="Token Scan" className={styles.refreshbutton} 
                 onClick={(e) => {
                   e.preventDefault();
+                  gotourl(TOKENCT);
                 }}
                 disabled={isLoading}>
-                  {/* {isLoading && <span className={styles.loaderre}></span>} */}
                   <Image src="/settings.png" alt="Refresh" width={10} height={10} />
                 </button>)}
 

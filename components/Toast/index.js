@@ -28,7 +28,7 @@ export const displayIcon = (type) => {
 const ToastMessage = ({ type, message, action }) =>
   toast[type](
     <div style={{ display: "flex" }}>
-      <div style={{ flexGrow: 1, fontSize: 15, padding: "8px 12px" }}>
+      <div style={{ flexGrow: 1, color: "black", fontSize: 15, padding: "8px 12px" }}>
         {message} &nbsp;
         <a 
           href={action}

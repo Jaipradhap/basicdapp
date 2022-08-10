@@ -7,7 +7,7 @@ import Web3 from 'web3';
 import Main from '../components/Main';
 import Basket from '../components/Basket';
 import data from '../components/data';
-import { CONTADDRESS } from '../config/constclient';
+import { BSCTESTNET, CONTADDRESS, DSTATECT, GUIDE, PAPERS, REDDIT, TIPS, TWITTER, YOUTUBE } from '../config/constclient';
 import SimpleStorageContract from '../config/contracts/Dstate.json';
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
       if(exist.qty === 99){
-        alert('Maximum Quantity achieved')
+        notify("info","Maximum Quantity achieved", GUIDE);
         return;
       }
       setCartItems(
@@ -59,6 +59,9 @@ export default function Home() {
   };
   /* Pass */
 
+  const gotouri = async (urls) => {
+    window.open(urls, '_blank').focus();
+   }
  
   /* chain switch */
   const networks = {
@@ -109,7 +112,7 @@ export default function Home() {
     } else if (window.web3) {
       provider = window.web3.currentProvider;
     } else {
-      notify("info", "Please install MetaMask! Check the guide " , "mmguide")
+      notify("info", "Please install MetaMask! Check the guide " , GUIDE);
     }
     return provider;
   };
@@ -120,9 +123,7 @@ export default function Home() {
       const currentProvider = detectCurrentProvider();
       if (currentProvider) {
         if (currentProvider !== window.ethereum) {
-          alert(
-            'Please install MetaMask!'
-          );
+          notify("info","Please install MetaMask! ", GUIDE);
           setIsLoadingConn(false);
           return;
         }
@@ -154,7 +155,7 @@ export default function Home() {
                   ],
                 });
               } catch (addError) {
-                notify("info","Please reload and try connect wallet!", "mmguide");
+                notify("info","Please reload and try connect wallet!", GUIDE);
                 setIsLoadingConn(false);
               }
             }
@@ -170,7 +171,7 @@ export default function Home() {
         let ethBalance = await web3.eth.getBalance(account); 
         ethBalance = web3.utils.fromWei(ethBalance, 'ether'); 
         if (userAccount.length === 0) {
-          alert('Please connect to meta mask');
+          notify("info","Please connect to meta mask! ", GUIDE);
           setIsLoadingConn(false);
         } else {
           setWeb3(web3);
@@ -182,7 +183,7 @@ export default function Home() {
       }
         setIsLoadingConn(false);
     } catch (err) {
-      notify("info","Please reload and try connect wallet!", "mmguide");
+      notify("info","Please reload and try connect wallet!", GUIDE);
       setIsLoadingConn(false);
     }
   };
@@ -192,7 +193,7 @@ export default function Home() {
     setRbal(0.0);
     setAccounts(null);
     setIsConnected(false);
-    notify("info","Disconnected! To know more about incentive tips ", "tricks");
+    notify("info","Disconnected! To know about tips & tricks ", TIPS);
   };
 
   const saveUserInfo = (ethBalance, account, chainId) => {
@@ -239,7 +240,7 @@ export default function Home() {
       }
 
     } catch (error) {
-      notify("info", "Please try after sometime! ", "tricks");
+      notify("info", "Please try after sometime! ", GUIDE);
     }
   }
   /* call ct */
@@ -256,9 +257,24 @@ export default function Home() {
 
           <div className={styles.menuline}>
           <button><Image src="/rxscoin.png" alt="rabbit eggs defi" width={15} height={15} /></button>
-          <button>Papers</button> 
-          <button>Guide</button> 
-          <button>BSCTestnet</button>
+          <button
+                                   onClick={(e) => {
+                                    e.preventDefault();
+                                    gotouri(PAPERS);
+                                  }}
+          >Papers</button> 
+          <button
+                                   onClick={(e) => {
+                                    e.preventDefault();
+                                    gotouri(GUIDE);
+                                  }}
+          >Guide</button> 
+          <button
+                                   onClick={(e) => {
+                                    e.preventDefault();
+                                    gotouri(BSCTESTNET);
+                                  }}
+          >BSCTestnet</button>
           </div>
         { !pizzadice && (<h3>Rabbit Eggs DeFi Platform</h3>)}
 
@@ -300,10 +316,30 @@ export default function Home() {
       <footer className={styles.footer}>
 
         <div className={styles.menulinef} >
-          <button>Contract Address</button> 
-          <button>Twitter</button> 
-          <button>Reddit</button> 
-          <button>Youtube</button>
+          <button
+                         onClick={(e) => {
+                          e.preventDefault();
+                          gotouri(DSTATECT);
+                        }}
+          >Contract Address</button> 
+          <button
+                                   onClick={(e) => {
+                                    e.preventDefault();
+                                    gotouri(TWITTER);
+                                  }}
+          >Twitter</button> 
+          <button
+                                   onClick={(e) => {
+                                    e.preventDefault();
+                                    gotouri(REDDIT);
+                                  }}
+          >Reddit</button> 
+          <button
+                                   onClick={(e) => {
+                                    e.preventDefault();
+                                    gotouri(YOUTUBE);
+                                  }}
+          >Youtube</button>
       </div>
       </footer>
     </div>

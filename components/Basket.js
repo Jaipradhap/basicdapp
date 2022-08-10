@@ -3,7 +3,7 @@ import React , { useCallback , useState } from 'react';
 import toast from "../components/Toast";
 import styles from '../styles/Home.module.css';
 import SimpleStorageContract from "../config/contracts/Dstate.json";
-import { TOKENNAME ,BASECOIN, CONTADDRESS ,TXNURL , RXSQTY} from '../config/constclient';
+import { TOKENNAME ,BASECOIN, CONTADDRESS ,TXNURL , RXSQTY, TIPS, GUIDE, TOKENADDRESS} from '../config/constclient';
 import Web3 from "web3";
 
 export default function Basket(props) {
@@ -11,15 +11,19 @@ export default function Basket(props) {
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
   const totalPrice = itemsPrice;
   const [isLoading, setIsLoading] = useState(false);
-  const [txnHash, setTxnHash] = useState(null);
   const ContractAddress = CONTADDRESS;
-  const TxnTrackerurl = TXNURL;
   // env 
 
 
   const notify = useCallback((type, message , action) => {
     toast({ type, message, action });
   }, []);
+
+  const copyToken = async () => {
+    navigator.clipboard.writeText(TOKENADDRESS);
+    notify("success","Address Copied! Please Import token into MetaMask ", GUIDE);
+   }
+
 
    const callCont = async (totalPrize) => {
     try {
@@ -35,18 +39,18 @@ export default function Basket(props) {
       );
 
         if(!instance) {
-          notify("info","Please try again! To know about incentive tips ", "mmguide");
+          notify("info","Please try again! To know about tips and tricks ", TIPS);
         }
         else {
       await instance.methods.buy().send({ from: accounts , value: Web3.utils.toWei(totalamt, 'ether')}, 
       function(error, transactionHash){
         if (error) {
 
-          notify("warning","Please try again! To know the steps ", "mmguide");
+          notify("info","Please try again! To know the steps ", GUIDE);
         } else {
 
           notify("success", "Please find the receipt  " , TXNURL + transactionHash);
-
+          notify("info","Minting is the fuel,Please encourage others", TIPS);
         
         }
     });
@@ -57,7 +61,7 @@ export default function Basket(props) {
   }
     } catch (error) {
 
-      notify("info","Please try again! To know about incentive tips ", "mmguide");
+      notify("info","Please try again! To know the steps ", GUIDE);
 
     }
   }; 
@@ -99,6 +103,13 @@ export default function Basket(props) {
 
         {cartItems.length !== 0 && (
           <>
+              <div className={styles.menulinef} ><button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                copyToken();
+                              }
+                            }
+              >Copy Token Address</button></div>
               <div>
               
               {isConnected && (<button className={styles.paybutton} 
