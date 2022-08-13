@@ -7,7 +7,7 @@ import Web3 from 'web3';
 import Main from '../components/Main';
 import Basket from '../components/Basket';
 import data from '../components/data';
-import { BSCTESTNET, CONTADDRESS, DSTATECT, GUIDE, PAPERS, REDDIT, TIPS, TWITTER, YOUTUBE } from '../config/constclient';
+import { BASEIMAGEPATH, BSCTESTNET, CONTADDRESS, DSTATECT, GUIDE, NFTs, TIKTOK, TIPS, TWITTER, YOUTUBE } from '../config/constclient';
 import SimpleStorageContract from '../config/contracts/Dstate.json';
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [rbal, setRbal] = useState(0.0);
-  
+  const faviconpath = BASEIMAGEPATH.concat('favicon.ico');
  
   const notify = useCallback((type, message , action) => {
     toast({ type, message, action });
@@ -250,19 +250,19 @@ export default function Home() {
       <Head>
         <title>Rabbit Eggs DeFi</title>
         <meta name="description" content="Rabbit Eggs Token RXGS based on Binance Smart Chain" /> 
-        <link rel="icon" href="/basicdapp/favicon.ico" />
+        <link rel="icon" href={faviconpath} />
       </Head>
 
         <main className={styles.main}>
 
           <div className={styles.menuline}>
           <button><Image src="/rxscoin.png" alt="rabbit eggs defi" width={15} height={15} /></button>
-          <button
+          <button                  title='Recurring Earning NFT'
                                    onClick={(e) => {
                                     e.preventDefault();
-                                    gotouri(PAPERS);
+                                    gotouri(NFTs);
                                   }}
-          >Papers</button> 
+          >NFTs</button> 
           <button
                                    onClick={(e) => {
                                     e.preventDefault();
@@ -331,9 +331,9 @@ export default function Home() {
           <button
                                    onClick={(e) => {
                                     e.preventDefault();
-                                    gotouri(REDDIT);
+                                    gotouri(TIKTOK);
                                   }}
-          >Reddit</button> 
+          >TikTok</button> 
           <button
                                    onClick={(e) => {
                                     e.preventDefault();

@@ -107,7 +107,7 @@ export default function Product(props) {
       BSC Testnet 
       </div>
       <div className={styles.h33}>
-      Get Base Currency {BASECOIN} <Image src="/bnbicon.png"  width={20} height={20} /> as incentive
+      Get recurring {BASECOIN} <Image src="/bnbicon.png"  width={20} height={20} /> earnings on mint
       </div>
       </>
       )}
